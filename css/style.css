@@ -1,0 +1,23 @@
+.field {
+    border: 1px solid #000;
+    width: 150px
+  }
+  
+  .field__row {
+    display: flex;
+    text-align: center;
+  }
+  
+  .field__ceil {
+    border: 1px solid #000;
+    width: 33.333%;
+    height: 40px
+  }
+  
+  .field__ceil_filled {
+    border-color: red;
+  }
+  
+  .field__ceil_win {
+    border-color: green;
+  }
