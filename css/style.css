@@ -1,23 +1,62 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .field {
     border: 1px solid #000;
     width: 150px
-  }
+}
   
-  .field__row {
+.field__row {
     display: flex;
     text-align: center;
-  }
+}
   
-  .field__ceil {
+.field__ceil {
     border: 1px solid #000;
     width: 33.333%;
     height: 40px
-  }
+}
   
-  .field__ceil_filled {
-    border-color: red;
-  }
+.field__ceil_filled {
+    border-color: #eb344f;
+}
   
-  .field__ceil_win {
-    border-color: green;
-  }
+.field__ceil_win {
+    border-color: #34eb46;
+}
+
+.field__authorization {
+    background-color: #42f5d1;
+    border: 2px solid #8442f5;
+    border-radius: 6px;
+    padding: 15px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.field__authorization-input {
+    padding-bottom: 15px;
+}
+
+.field__authorization-input input {
+    width: 370px;
+    padding: 10px;
+}
+
+.field__authorization-button {
+    display: block;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.field__players {
+    background: #d234eb;
+    padding: 10px;
+}
