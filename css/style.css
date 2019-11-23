@@ -38,14 +38,29 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
+.field__authorization-hint {
+    border: 1px solid #000;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-100%, -100%);
+    width: 140px
+}
 
 .field__authorization-input {
+    position: relative;
     padding-bottom: 15px;
 }
 
 .field__authorization-input input {
     width: 370px;
     padding: 10px;
+    transition: all .4s ease-in-out;
+}
+
+.field__authorization-input_invalid {
+    border: 1px solid #ff1414;
 }
 
 .field__authorization-button {
@@ -59,4 +74,19 @@
 .field__players {
     background: #d234eb;
     padding: 10px;
+}
+
+.field__restart {
+    display: block;
+    margin: auto;
+}
+
+.winner-alert {
+    border: 2px solid #8442f5;
+    border-radius: 6px;
+    padding: 15px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
