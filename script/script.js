@@ -2,8 +2,11 @@ class PlayingField {
     removeField() {
         this.field.remove();
     }
-    fillCell(ceil, symbol) {
-        ceil.textContent = symbol;
+    fillCell(ceil, symbolClass) {
+        const symbol = document.createElement("div");
+        symbol.classList.add(symbolClass);
+        symbol.dataset.symbol = symbolClass;
+        ceil.append(symbol);
         ceil.classList.add("field__ceil_filled");
     }
     drawPlayerName() {
@@ -46,14 +49,16 @@ class PlayingField {
   
 class TicTacToe {
     constructor(player1, player2) {
-        this.symbolsOfMoves = ["X", "0"];
+        this.symbolsOfMoves = ["cross", "circle"];
         this.playerNames = [player1, player2];
         this.currentOrder = 0;
+        this.doneGame = false;
     }
     restartGame() {
         this.playField.removeField();
-        this.winnerAlerts.remove();
+        this.doneGame ? this.winnerAlerts.remove() : this.winnerAlerts;
         this.currentOrder = 0;
+        this.doneGame = false;
         document.querySelector(".field-wrap").append(this.startGame());
     }
     announceTheWinner() {
@@ -66,7 +71,7 @@ class TicTacToe {
     endGame() {
         [...this.playField.field.querySelectorAll(".field__ceil")]
             .forEach(c => c.removeEventListener("click", this.stepHandler));
-
+        this.doneGame = true;
         this.announceTheWinner();
     }
     checkWinners() {
@@ -84,9 +89,11 @@ class TicTacToe {
         winnersComb
             .forEach((item) => {
                 const ceils = this.playField.field.querySelectorAll(".field__ceil");
-                const ceilTxt = item.map((item) => ceils[item].textContent);
+                const ceilTxt = item.map((item) => ceils[item].firstElementChild
+                                                     ? ceils[item].firstElementChild.dataset.symbol
+                                                     : null);
 
-                if (ceilTxt.every(item => item === ceilTxt[0] && item != "")) {
+                if (ceilTxt.every(item => item === ceilTxt[0] && item)) {
                     item.map((item) => ceils[item])
                         .forEach(ceil => ceil.classList.add("field__ceil_win"));
                     this.endGame();
@@ -104,7 +111,7 @@ class TicTacToe {
         this.playField.fillCell(ceil, this.symbolsOfMoves[this.currentOrder]);
         this.checkWinners();
         this.currentOrder >= 1 ? this.currentOrder = 0 : this.currentOrder++;
-        this.changeNamePlayer();
+        this.doneGame ? false : this.changeNamePlayer();
     }
     startGame() {
         this.playField = new PlayingField();
@@ -128,7 +135,7 @@ class Aauthorization {
         const hint = document.createElement("p");
         
         hint.classList.add("field__authorization-hint");
-        hint.textContent = "The name can contain only letters, numbers and symbols (-, _)";
+        hint.textContent = "The name can contain only letters, numbers and symbols (-, _), and length no more than 7";
         this.modal.append(hint);
     }
     validHandler() {
@@ -151,13 +158,11 @@ class Aauthorization {
         this.modal.innerHTML = modalInner;
     }
     checkInputs() {
-        const inputs = [...this.modal.querySelectorAll("input")];
-
-        inputs
+        [...this.modal.querySelectorAll("input")]
             .forEach(item => {
                 item.classList.remove("field__authorization-input_invalid")
 
-                if (!(/[A-Za-z0-9_-]{1,8}/.test(item.value))) {
+                if (!(/[A-Za-z0-9_-]{1,8}/.test(item.value)) || item.value.length > 7) {
                     item.classList.add("field__authorization-input_invalid");
                 }
             });
@@ -168,14 +173,13 @@ class Aauthorization {
         this.createAuthorizationModal();
         this.modal.querySelector(".field__authorization-button")
             .addEventListener("click", () => {
-                const playerNames = [...this.modal.querySelectorAll("input")].map(item => item.value);
-
                 if (this.checkInputs()) {
                     this.invalidHandler();
 
                     return false;
                 }
 
+                const playerNames = [...this.modal.querySelectorAll("input")].map(item => item.value);
                 const playSession = new TicTacToe(playerNames[0], playerNames[1]).startGame();
 
                 this.validHandler();

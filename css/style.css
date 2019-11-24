@@ -4,9 +4,56 @@
     padding: 0;
 }
 
+body {
+    background-color: #f8faf7;
+}
+
+.cross {
+    position: relative;
+    /* background-color: #272adb; */
+}
+
+.cross::before,
+.cross::after {
+    background-color: #272adb;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 2px;
+    width: 60px;
+    transform-origin: 0 0;
+}
+
+.cross::before {
+    transform: rotate(45deg) translateX(-50%);
+    /* transform: rotate(45deg); */
+}
+
+.cross::after {
+    transform: rotate(-45deg) translateX(-50%);
+    /* transform: rotate(-45deg); */
+}
+
+.circle {
+    border: 2px solid #0e8c25;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+}
+
+.field-wrap {
+    position: relative;
+    height: 100vh;
+}
+
 .field {
-    border: 1px solid #000;
-    width: 150px
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    /* box-shadow: -1px 6px 16px -1px rgba(0,0,0,0.52); */
 }
   
 .field__row {
@@ -16,16 +63,28 @@
   
 .field__ceil {
     border: 1px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 33.333%;
-    height: 40px
+    height: 95px;
+    transition: all .4s ease-in-out;
+}
+
+.field__ceil:hover {
+    background-color: #dad7e0;
 }
   
 .field__ceil_filled {
-    border-color: #eb344f;
+    background-color: #dad7e0;
 }
   
 .field__ceil_win {
-    border-color: #34eb46;
+    background-color: #34eb46;
+}
+
+.field__ceil_win:hover {
+    background-color: #34eb46;
 }
 
 .field__authorization {
@@ -60,7 +119,7 @@
 }
 
 .field__authorization-input_invalid {
-    border: 1px solid #ff1414;
+    border: 2px solid #ff1414;
 }
 
 .field__authorization-button {
@@ -72,16 +131,33 @@
 }
 
 .field__players {
-    background: #d234eb;
+    background: #000;
+    color: #fff;
     padding: 10px;
+    text-transform: uppercase;
 }
 
 .field__restart {
+    cursor: pointer;
+    background-color: #ff5445;
+    border: none;
+    border-radius: 6px;
     display: block;
-    margin: auto;
+    text-transform: uppercase;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    transition: all .4s ease-in-out;
+    box-shadow: -1px 6px 16px -1px rgba(0,0,0,0.52);
+}
+
+.field__restart:hover {
+    background-color: #ff0022;
 }
 
 .winner-alert {
+    background-color: #fff;
     border: 2px solid #8442f5;
     border-radius: 6px;
     padding: 15px;
